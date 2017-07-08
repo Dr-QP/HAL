@@ -11,7 +11,7 @@ class HalConan(ConanFile):
     description = "HAL layer interfaces"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
-    exports_sources = "*"
+    exports_sources = "*", "!build/*", "!test_package/*"
 
     def package(self):
         self.copy("*.h", dst="include", src="include")
