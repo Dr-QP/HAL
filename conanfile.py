@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile
 import os
 
 
@@ -8,12 +8,13 @@ class HalConan(ConanFile):
     license = "Apache License, Version 2.0. https://www.apache.org/licenses/LICENSE-2.0"
     url = "https://github.com/Dr-QP/HAL"
     author = "Anton Matosov (anton.matosov@gmail.com)"
+    description = "HAL layer interfaces"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
     exports_sources = "*"
 
     def package(self):
-        self.copy("*.h", dst="include", src=".")
+        self.copy("*.h", dst="include", src="include")
 
     def package_info(self):
         self.cpp_info.includedirs = ['include']
