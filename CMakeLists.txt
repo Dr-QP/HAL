@@ -1,14 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
-
-set(PROJECT_NAME HAL)
-project(${PROJECT_NAME})
+set(PROJECT_NAME HALArduino)
+project(${PROJECT_NAME} VERSION 1.0.0)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-file(GLOB_RECURSE ALL_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-file(GLOB_RECURSE ALL_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE ${PROJECT_NAME}_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h)
+file(GLOB_RECURSE ${PROJECT_NAME}_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
-# So far HAL is header only, so building static lib will fail
-#add_library(${PROJECT_NAME} STATIC ${ALL_HDRS} ${ALL_SRCS})
-#set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+generate_arduino_library(${PROJECT_NAME})
