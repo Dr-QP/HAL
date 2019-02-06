@@ -1,28 +1,33 @@
 from conans import ConanFile, CMake
 
 class HalarduinoConan(ConanFile):
-    name = "HALArduino"
+    name = "HAL"
     version = "develop"
     license = "Apache License, Version 2.0. https://www.apache.org/licenses/LICENSE-2.0"
     url = "https://github.com/Dr-QP/HALArduino"
     author = "Anton Matosov (anton.matosov@gmail.com)"
-    description = """HAL layer implementation for Arduino. To build use:\n
+    description = """HAL layer.
+ - Arduino implementation:\n
 conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++11 -s os="Arduino" -s arch=avr --build=missing"""
 
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
-    exports_sources = "src/*", "!build/*", "!test_package/*", "CMakeLists.txt"
-    requires = "HAL/develop@anton-matosov/dev"
-    build_requires = "arduino-toolchain/1.8.8@anton-matosov/dev"
+    exports_sources = "include/*", "src/*", "!build/*", "!test_package/*", "CMakeLists.txt"
 
     def build(self):
         cmake = CMake(self)
-        self.run('cmake %s %s' % (self.conanfile_directory, cmake.command_line))
-        self.run("cmake --build . %s" % cmake.build_config)
+        cmake.configure()
+        cmake.build()
+
+    def build_requirements(self):
+        if self.settings.os == "Arduino":
+            self.build_requires("arduino-toolchain/[>1.8]@anton-matosov/dev")
 
     def package(self):
-        self.copy("*.h", dst="include", src="src")
-        self.copy("*HALArduino.lib", dst="lib", keep_path=False)
+        if self.settings.os == "Arduino":
+            self.copy("*.h", dst="include", src="src/arduino", keep_path=False)
+        self.copy("*.h", dst="include", src="include")
+        self.copy("*HAL*.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
@@ -31,4 +36,4 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
     def package_info(self):
         self.cpp_info.includedirs = ['include']
         self.cpp_info.cppflags = ['-std=c++11']
-        self.cpp_info.libs = ["HALArduino"]
+        self.cpp_info.libs = ["HAL"]

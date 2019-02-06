@@ -1,20 +1,13 @@
 from conans import ConanFile, CMake
 import os
 
-
-channel = os.getenv("CONAN_CHANNEL", "dev")
-username = os.getenv("CONAN_USERNAME", "anton-matosov")
-
-
-class HalTestConan(ConanFile):
-    settings = "os", "compiler", "build_type", "arch"
-    requires = "HAL/develop@%s/%s" % (username, channel)
+class HalarduinoTestConan(ConanFile):
+    settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
 
     def build(self):
         cmake = CMake(self)
-        # Current dir is "test_package/build/<build_id>" and CMakeLists.txt is in "test_package"
-        cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+        cmake.configure()
         cmake.build()
 
     def imports(self):
@@ -23,4 +16,5 @@ class HalTestConan(ConanFile):
 
     def test(self):
         os.chdir("bin")
-        self.run(".%sexample" % os.sep)
+        # Tests need to be uploaded to Arduino to run. So do nothing for now
+        # self.run(".%sexample" % os.sep)
