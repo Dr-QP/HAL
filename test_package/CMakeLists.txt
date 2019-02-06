@@ -4,12 +4,8 @@ cmake_minimum_required(VERSION 2.8.12)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-if (CMAKE_SYSTEM_NAME STREQUAL Arduino)
-  add_subdirectory(arduino)
-elseif (UNIX)
-  add_executable(example example.cpp)
-  target_link_libraries(example ${CONAN_LIBS})
-endif()
+string(TOLOWER ${CMAKE_SYSTEM_NAME} SOURCES_FOLDER)
+add_subdirectory(${SOURCES_FOLDER})
 
 # CTest is a testing tool that can be used to test your project.
 # enable_testing()
