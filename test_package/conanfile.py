@@ -16,5 +16,8 @@ class HalarduinoTestConan(ConanFile):
 
     def test(self):
         os.chdir("bin")
-        # Tests need to be uploaded to Arduino to run. So do nothing for now
-        # self.run(".%sexample" % os.sep)
+        if self.settings.os == "Arduino":
+            # Tests need to be uploaded to Arduino to run. So do nothing for now
+            pass
+        else:
+            self.run(".%sexample" % os.sep)

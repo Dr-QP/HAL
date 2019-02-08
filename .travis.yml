@@ -1,10 +1,10 @@
 
 env:
-   global:
-     - CONAN_USERNAME: "anton-matosov"
-     - CONAN_CHANNEL: "testing"
-     - CONAN_STABLE_BRANCH_PATTERN: "release/*"
-     
+  global:
+    - CONAN_USERNAME: "conan"
+    - CONAN_CHANNEL: "testing"
+    - CONAN_STABLE_BRANCH_PATTERN: "release/*"
+
 linux: &linux
    os: linux
    sudo: required
@@ -18,7 +18,8 @@ osx: &osx
 matrix:
    include:
       - <<: *linux
-        env: CONAN_GCC_VERSIONS=4.9
+        env: CONAN_GCC_VERSIONS=5.4
+
       - <<: *osx
         osx_image: xcode8.3
 

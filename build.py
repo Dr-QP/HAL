@@ -4,25 +4,27 @@ import copy
 
 
 class ArduinoPackager(ConanMultiPackager):
-    def add(self, options={}):
-        super(self.__class__, self).add(settings={
+    def addArduino(self, options={}):
+        self.add(settings={
             "os": "Arduino",
             "os.board": "uno",
             "compiler": "gcc",
-            "compiler.version": "4.9",
+            "compiler.version": "5.4",
             "compiler.libcxx": "libstdc++11",
             "arch": "avr"
         }, options=options
         , env_vars={
             "CC": "gcc"
         }, build_requires={
-            "*": ["arduino-toolchain/1.8.3@conan/testing"]
+            "*": ["arduino-toolchain/1.8.8@conan/testing"]
         })
 
 
 if __name__ == "__main__":
-    builder = ArduinoPackager(build_policy="missing")
+    builder = ArduinoPackager(build_policy="outdated")
+    
     builder.add()
+    builder.addArduino()
 
     if os_info.is_linux:
         filtered_builds = []
