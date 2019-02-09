@@ -27,8 +27,11 @@ class ArduinoPackager(ConanMultiPackager):
 if __name__ == "__main__":
     builder = ArduinoPackager(build_policy="outdated")
     
-    builder.add()
-    builder.addArduino()
+    if os.getenv("DRQP_NATIVE_BUILD") == "1":
+        builder.add()
+
+    if os.getenv("DRQP_ARDUINO_BUILD") == "1":
+        builder.addArduino()
 
     if os_info.is_linux:
         filtered_builds = []
