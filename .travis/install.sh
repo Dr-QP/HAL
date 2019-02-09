@@ -6,10 +6,10 @@ set -x
 if [[ "$(uname -s)" == 'Darwin' ]]; then
     brew update
     brew upgrade python
-else
-    dpkg --add-architecture i386
-    apt update
-    apt install -y libc6:i386 libncurses5:i386 libstdc++6:i386 multiarch-support
+elif [[ -z "$CONAN_DOCKER_IMAGE" ]]
+    sudo dpkg --add-architecture i386
+    sudo apt update
+    sudo apt install -y libc6:i386 libncurses5:i386 libstdc++6:i386 multiarch-support
 fi
 
 pip3 install conan conan_package_tools --upgrade
