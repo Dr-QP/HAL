@@ -1,10 +1,14 @@
 from conan.packager import ConanMultiPackager
 from conans.tools import os_info
 import copy
-
+import os
 
 class ArduinoPackager(ConanMultiPackager):
     def addArduino(self, options={}):
+        if os.getenv("CONAN_DOCKER_IMAGE") or os.getenv("CONAN_USE_DOCKER"):
+            # Arduino builds fail if conan was lunched with docker image specification
+            return None
+
         self.add(settings={
             "os": "Arduino",
             "os.board": "uno",
