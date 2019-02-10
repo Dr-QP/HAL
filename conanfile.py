@@ -10,7 +10,7 @@ class HalarduinoConan(ConanFile):
     description = """HAL layer.
  - Arduino implementation:\n
 conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++11 -s os="Arduino" -s arch=avr --build=missing"""
-    
+
     options = {"shared": [True, False]}
     default_options = "shared=False", "Boost:shared=False"
     settings = "os", "compiler", "arch", "build_type"
@@ -36,6 +36,7 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+        cmake.test()
 
     def package(self):
         if self.settings.os == "Arduino":

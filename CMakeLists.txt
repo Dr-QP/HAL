@@ -7,20 +7,26 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-if(NOT EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    # message(FATAL_ERROR "The file conanbuildinfo.cmake doesn't exist.\nPlease run 'conan install' first")
-    execute_process(COMMAND conan install "${CMAKE_CURRENT_SOURCE_DIR}" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CONAN_BUILD_INFO_FILE ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
+if(NOT EXISTS ${CONAN_BUILD_INFO_FILE})
+  message(
+    WARNING
+      "The file conanbuildinfo.cmake doesn't exist.\nRunning 'conan install' first..."
+    )
+  execute_process(COMMAND conan install "${CMAKE_CURRENT_SOURCE_DIR}"
+                          -if="${PROJECT_BINARY_DIR}")
 endif()
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+include(${CONAN_BUILD_INFO_FILE})
 conan_basic_setup()
 
 include_directories(include)
 
-if (${CMAKE_SYSTEM_NAME} STREQUAL Arduino)
-    add_subdirectory(src/arduino)
-elseif (UNIX)
-    add_subdirectory(src/unix)
-else ()
-    message(FATAL_ERROR "unsupported platform")
+if(${CMAKE_SYSTEM_NAME} STREQUAL Arduino)
+  add_subdirectory(src/arduino)
+elseif(UNIX)
+  add_subdirectory(src/unix)
+  add_subdirectory(tests/unix)
+else()
+  message(FATAL_ERROR "unsupported platform")
 endif()
