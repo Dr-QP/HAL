@@ -1,5 +1,6 @@
 from conans import ConanFile, CMake
 
+
 class HalarduinoConan(ConanFile):
     name = "HAL"
     version = "develop"
