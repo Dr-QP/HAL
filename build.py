@@ -3,6 +3,7 @@ from conans.tools import os_info
 import copy
 import os
 
+
 class ArduinoPackager(ConanMultiPackager):
     def addArduino(self, options={}):
         if os.getenv("CONAN_DOCKER_IMAGE") or os.getenv("CONAN_USE_DOCKER"):
@@ -16,8 +17,7 @@ class ArduinoPackager(ConanMultiPackager):
             "compiler.version": "5.4",
             "compiler.libcxx": "libstdc++11",
             "arch": "avr"
-        }, options=options
-        , env_vars={
+        }, options=options, env_vars={
             "CC": "gcc"
         }, build_requires={
             "*": ["arduino-toolchain/1.8.8@conan/testing"]
@@ -26,7 +26,7 @@ class ArduinoPackager(ConanMultiPackager):
 
 if __name__ == "__main__":
     builder = ArduinoPackager(build_policy="outdated")
-    
+
     if os.getenv("DRQP_NATIVE_BUILD") == "1":
         builder.add()
 
