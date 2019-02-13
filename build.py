@@ -20,8 +20,7 @@ class ArduinoPackager(ConanMultiPackager):
         }, options=options, env_vars={
             "CC": "gcc"
         }, build_requires={
-            "*": ["arduino-toolchain/1.8.8@conan/testing"],
-            "*": ["cmake_installer/3.13.0@conan/stable"],
+            "*": ["arduino-toolchain/1.8.8@conan/testing", "cmake_installer/3.13.0@conan/stable"],
         })
 
 
