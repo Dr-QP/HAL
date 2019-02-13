@@ -15,7 +15,7 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
     default_options = "shared=False", "Boost:shared=False"
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
-    exports_sources = "include/*", "src/*", "!build/*", "!test_package/*", "CMakeLists.txt"
+    exports_sources = "*", "!build/*", "!test_package/*"
 
     def configure(self):
         self.options["Boost"].shared = self.options.shared
@@ -36,7 +36,8 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        cmake.test()
+        if self.settings.os != "Arduino":
+            cmake.test()
 
     def package(self):
         if self.settings.os == "Arduino":

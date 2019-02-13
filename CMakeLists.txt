@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
 set(PROJECT_NAME HAL)
 project(${PROJECT_NAME} VERSION 1.0.0)

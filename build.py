@@ -20,15 +20,24 @@ class ArduinoPackager(ConanMultiPackager):
         }, options=options, env_vars={
             "CC": "gcc"
         }, build_requires={
-            "*": ["arduino-toolchain/1.8.8@conan/testing"]
+            "*": ["arduino-toolchain/1.8.8@conan/testing"],
+            "*": ["cmake_installer/3.13.0@conan/stable"],
         })
 
 
 if __name__ == "__main__":
-    builder = ArduinoPackager(build_policy="outdated")
+    builder = ArduinoPackager(build_policy="outdated",
+        upload="https://api.bintray.com/conan/anton-matosov/general",
+        login_username="anton-matosov",
+        username="conan",
+        channel="testing",
+        stable_branch_pattern="release/*",
+    )
 
     if os.getenv("DRQP_NATIVE_BUILD") == "1":
-        builder.add()
+        builder.add(build_requires={
+            "*": ["cmake_installer/3.13.0@conan/stable"],
+        })
 
     if os.getenv("DRQP_ARDUINO_BUILD") == "1":
         builder.addArduino()
