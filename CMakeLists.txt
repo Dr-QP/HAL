@@ -7,14 +7,14 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CONAN_BUILD_INFO_FILE ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
+set(CONAN_BUILD_INFO_FILE ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 if(NOT EXISTS ${CONAN_BUILD_INFO_FILE})
   message(
     WARNING
       "The file conanbuildinfo.cmake doesn't exist.\nRunning 'conan install' first..."
     )
   execute_process(COMMAND conan install "${CMAKE_CURRENT_SOURCE_DIR}"
-                          -if="${PROJECT_BINARY_DIR}")
+                          -if="${CMAKE_CURRENT_BINARY_DIR}")
 endif()
 
 include(${CONAN_BUILD_INFO_FILE})
