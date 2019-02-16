@@ -1,4 +1,4 @@
-set(TARGET_NAME test)
+set(TARGET_NAME hal_tests)
 
 set(SOURCES TestOpenSerial.cpp)
 

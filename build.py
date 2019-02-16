@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from conan.packager import ConanMultiPackager
 from conans.tools import os_info
 import copy
