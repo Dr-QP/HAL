@@ -26,7 +26,7 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
 
     def build_requirements(self):
         if self.settings.os == "Arduino":
-            self.build_requires("arduino-toolchain/[>1.8]@%s/%s" % (self.user, self.channel))
+            self.build_requires("arduino-toolchain/[~=1.8]@%s/%s" % (self.user, self.channel))
 
     def imports(self):
         self.copy("*.dll", "", "bin")
@@ -36,7 +36,7 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        if self.settings.os != "Arduino":
+        if tools.get_env("CONAN_RUN_TESTS", True):
             cmake.test()
 
     def package(self):
