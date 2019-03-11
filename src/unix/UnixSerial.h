@@ -1,7 +1,3 @@
-//
-// Created by Anton Matosov on 6/17/17.
-//
-
 #pragma once 
 
 #include <SerialProtocol.h>

@@ -21,7 +21,7 @@ endif()
 include(${CONAN_BUILD_INFO_FILE})
 conan_basic_setup()
 
-include_directories(include)
+include_directories(src/include)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Arduino)
   add_subdirectory(src/arduino)

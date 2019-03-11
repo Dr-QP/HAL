@@ -1,7 +1,3 @@
-//
-// Created by Anton Matosov on 6/17/17.
-//
-
 #include "UnixSerial.h"
 #include <boost/asio/write.hpp>
 #include <boost/asio/read.hpp>

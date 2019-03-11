@@ -10,3 +10,5 @@ set(${PROJECT_NAME}_SRCS
     ArduinoTimeServices.cpp)
 
 generate_arduino_library(${PROJECT_NAME})
+
+target_include_directories(${PROJECT_NAME} PUBLIC .)

@@ -43,7 +43,7 @@ conan test_package -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=li
             self.copy("*.h", dst="include", src="src/arduino", keep_path=False)
         else:
             self.copy("*.h", dst="include", src="src/unix", keep_path=False)
-        self.copy("*.h", dst="include", src="include")
+        self.copy("*.h", dst="include", src="src/include", keep_path=False)
         self.copy("*HAL*.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
